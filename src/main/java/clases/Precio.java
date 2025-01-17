@@ -1,13 +1,10 @@
 package clases;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
-@Setter @Getter @NoArgsConstructor  @ToString
+@Data @NoArgsConstructor
 public class Precio {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

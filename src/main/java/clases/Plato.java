@@ -15,10 +15,16 @@ public class Plato {
     private int id;
     private String nombre;
     private String descripcion;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Precio precio;
     @ManyToMany
     private List<Ingrediente> ingredientes;
+
+    public Plato(String nombre, String descripcion, Precio precio) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
 
     public void anadirIngrediente(Ingrediente i){
 
