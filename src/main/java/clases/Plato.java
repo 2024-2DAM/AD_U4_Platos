@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter @ToString @NoArgsConstructor
+@Getter @Setter  @NoArgsConstructor
 public class Plato {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -17,8 +18,8 @@ public class Plato {
     private String descripcion;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Precio precio;
-    @ManyToMany
-    private List<Ingrediente> ingredientes;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Ingrediente> ingredientes = new ArrayList<>();
 
     public Plato(String nombre, String descripcion, Precio precio) {
         this.nombre = nombre;
@@ -27,10 +28,10 @@ public class Plato {
     }
 
     public void anadirIngrediente(Ingrediente i){
-
+        ingredientes.add(i);
     }
 
     public void eliminarIngrediente(Ingrediente i){
-
+        ingredientes.remove(i);
     }
 }

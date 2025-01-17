@@ -3,6 +3,9 @@ package dao;
 import clases.Precio;
 import org.hibernate.HibernateError;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class PrecioDAO {
     //Create
@@ -42,4 +45,23 @@ public class PrecioDAO {
         }
     }
 
+    //Leer todos los precios
+    private static List<Precio> leerTodos(){
+        try(Session session = HibernateUtil.getSessionFactory().openSession();){
+            String hql = "from Precio"; //select p from Precio p
+            Query q = session.createQuery(hql, Precio.class);
+            return q.getResultList();
+        }
+    }
+
+    //Leer todos los precios entre dos valores
+    private static List<Precio> leerTodos(int min, int max){
+        try(Session session = HibernateUtil.getSessionFactory().openSession();){
+            String hql = "select p from Precio p where p.cantidad > :min and p.cantidad < :max";
+            Query q = session.createQuery(hql, Precio.class);
+            q.setParameter("min", min);
+            q.setParameter("max", max);
+            return q.getResultList();
+        }
+    }
 }

@@ -15,4 +15,10 @@ public class Proveedor {
     private String cif;
     private String nombre;
     private String ciudad;
+
+    public Proveedor(String cif, String nombre, String ciudad) {
+        this.cif = cif;
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+    }
 }

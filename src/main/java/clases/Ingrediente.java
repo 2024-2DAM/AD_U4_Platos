@@ -9,15 +9,20 @@ import lombok.ToString;
 import java.util.List;
 
 @Entity
-@Getter @Setter @ToString @NoArgsConstructor
+@Getter @Setter  @NoArgsConstructor
 public class Ingrediente {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombre;
-    @ManyToMany(mappedBy = "ingredientes")
+    @ManyToMany(mappedBy = "ingredientes", fetch = FetchType.EAGER)
     private List<Plato> platos;
     @ManyToOne
     private Proveedor proveedor;
+
+    public Ingrediente(String nombre, Proveedor proveedor) {
+        this.nombre = nombre;
+        this.proveedor = proveedor;
+    }
 
     public void anadirPlato(Plato p){
 

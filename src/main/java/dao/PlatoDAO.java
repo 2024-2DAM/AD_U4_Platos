@@ -10,5 +10,15 @@ public class PlatoDAO {
             session.persist(plato);
             session.getTransaction().commit();
         }
+
+
+    }
+
+    public static Plato leer(int id) {
+        Plato p = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession();) {
+            p = session.find(Plato.class, id);
+        }
+        return p;
     }
 }

@@ -3,9 +3,8 @@ package interfaz;
 import clases.Ingrediente;
 import clases.Plato;
 import clases.Precio;
-import dao.HibernateUtil;
-import dao.PlatoDAO;
-import dao.PrecioDAO;
+import clases.Proveedor;
+import dao.*;
 import org.hibernate.SessionFactory;
 
 public class Main {
@@ -24,14 +23,26 @@ public class Main {
 //        PrecioDAO.eliminar(p1);
 
 
-        Precio p3 = new Precio("EUR", 125);
-        Plato plato1 = new Plato("ensaladilla rusa", "...", p3);
-        //PrecioDAO.crear(p3);
-        PlatoDAO.crear(plato1);
+//        Precio p3 = new Precio("EUR", 125);
+//        Plato plato1 = new Plato("ensaladilla rusa", "...", p3);
+//        //PrecioDAO.crear(p3);
+//        PlatoDAO.crear(plato1);
 
+        Proveedor pr1 = new Proveedor("cif1", "nom1", "madrid");
+        Ingrediente in1 = new Ingrediente("ingr1", pr1);
+        Ingrediente in2 = new Ingrediente("ingr2", pr1);
+        Plato plato = new Plato("nuevo", "...", new Precio("EUR", 1));
+        plato.anadirIngrediente(in1);
+        in1.anadirPlato(plato);
 
+        ProveedorDAO.crear(pr1);
+        IngredienteDAO.crear(in1);
+        IngredienteDAO.crear(in2);
+        PlatoDAO.crear(plato);
 
-        //Varios platos mismo precio (luego)
+        Plato leido = PlatoDAO.leer(1);
+        System.out.println(leido.getIngredientes());
+
 
     }
 }
